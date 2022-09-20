@@ -1,27 +1,31 @@
 package AstonTests;
 
+import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Test3 {
     public static void main(String[] args) {
-        Scanner input = new Scanner (System.in);
-        System.out.println("Введите длину массива: ");
-        int length = input.nextInt();
-        int list [] = new int [length];
-        for (int i = 0; i < length; i++) {
-            System.out.println("Введите " + (i + 1) + " значение массива: ");
-            list [i] = input.nextInt();
-        }
-        int marker = 0;
-        for (int i = 0; i < length; i++) {
-            if ((list [i] % 3 == 0) && (marker == 0)) {
-                System.out.println("Элементы массива, кратные 3: ");
-                System.out.print(list[i] + " ");
-                marker = 1;
-            } else if ((list [i] % 3 == 0) && (marker == 1)) {
-                System.out.print(list[i] + " ");
+        ArrayList<Integer> multipleOfThree = new ArrayList<>();
+        Scanner input = new Scanner(System.in);
+        System.out.println("Введите целые числа, завершив ввод значением 0: ");
+        int value = 1;
+        do {
+            try {
+                value = input.nextInt();
+                if (value % 3 == 0)
+                    multipleOfThree.add(value);
+            } catch (InputMismatchException ex) {
+                System.out.println("Введено не целое число!");
+                input.next();
             }
-        }
-        if (marker == 0) System.out.println("Элементов кратных 3 в массиве нет");
+        } while (value != 0);
+        input.close();
+        if (multipleOfThree.size() > 1) {
+            System.out.println("Числа, кратные 3: ");
+            for (int i = 0; i < multipleOfThree.size() - 1; i++) {
+                System.out.print(multipleOfThree.get(i) + " ");
+            }
+        } else System.out.println("Чисел, кратных 3 нет");
     }
 }
